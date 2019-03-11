@@ -1,9 +1,18 @@
 public class GameEngine {
     Adegan adeganAwal; //awal adegan yang akan dijalankan
+    KantongBarang oKantongBarang;
 
+    public GameEngine() {
+
+    }
 
     public void tambahAdegan(Adegan oAdegan) {
-
+        //kantong barang milik user
+        Barang permen = new Barang("Permen");
+        oKantongBarang = new KantongBarang();
+        oKantongBarang.tambahBarang(permen);
+        //kantong ini berlaku untuk semua objek karena diset static
+        Adegan.oKantongBarang = oKantongBarang;
     }
 
     public void mulai() {
@@ -37,6 +46,7 @@ public class GameEngine {
         ge.tambahAdegan(adeganPintu);
         //ge.tambahAdegan(adeganMeja);
         ge.adeganAwal = adeganAwal;
+
         ge.mulai();
     }
 }
