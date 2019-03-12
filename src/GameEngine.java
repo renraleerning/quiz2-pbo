@@ -1,52 +1,63 @@
+/*
+    inisialisasi adegan dsb, jalankan adegan sampai permainan selesai.
+
+ */
+
 public class GameEngine {
-    Adegan adeganAwal; //awal adegan yang akan dijalankan
-    KantongBarang oKantongBarang;
+    Player oPlayer;
 
     public GameEngine() {
-
-    }
-
-    public void tambahAdegan(Adegan oAdegan) {
-        //kantong barang milik user
-        Barang permen = new Barang("Permen");
-        oKantongBarang = new KantongBarang();
-        oKantongBarang.tambahBarang(permen);
-        //kantong ini berlaku untuk semua objek karena diset static
-        Adegan.oKantongBarang = oKantongBarang;
+        Barang koin = new Barang("koin","uang koin");
+        oPlayer = new Player();
+        oPlayer.tambahBarang(koin);  //dummy saja
+        //perhatikan Adegan  disini adalah class, oPlayer adalah static atribut sehingga berlaku untuk semua objek
+        //artinya semua objek adegan punya objek player yang sama
+        Adegan.oPlayer = oPlayer;
     }
 
     public void mulai() {
-        adeganAwal.mainkan();
+        oPlayer.printIdentitas();
+        do {
+            oPlayer.adeganAktif.mainkan();
+        } while (!oPlayer.isSelesai);
     }
 
     public static void main(String[] args) {
+
+        Barang kunci = new Barang("kunci_besar","Kunci Besar");
+
+
+        Adegan adeganPintu = new AdeganPintu();
+        Adegan adeganMeja  = new Adegan();
+
+        Pilihan pilihanMenujuPintu = new PilihanGantiAdegan(adeganPintu,"Menuju pintu");
+        Pilihan pilihanMenujuMeja  = new PilihanGantiAdegan(adeganMeja,"Menuju meja");
 
         //init data cerita
         // == adegan awal
         Adegan  adeganAwal = new Adegan();
         adeganAwal.narasi =
                 "Rudi terbangun disebuah ruangan yang tidak dikenal. Dia melihat sekeliling, \n" +
-                "ada pintu dan sebuah meja kecil";
-        Pilihan pilihanMenujuPintu = new PilihanGantiAdegan("Menuju pintu");
-        Pilihan pilihanMenujuMeja  = new PilihanGantiAdegan("Menuju meja");
+                "terlihat jendela, pintu dan sebuah meja kecil";
         adeganAwal.tambahPilihan(pilihanMenujuPintu);
         adeganAwal.tambahPilihan(pilihanMenujuMeja);
 
 
-        // == adegan menuju pintu
-        Adegan adeganPintu = new Adegan();
-        adeganPintu.narasi = "Rudi mendekati pintu. Rudi mencoba membuka pintu. \"Ah terkunci\"";
+        // == adegan di depan pintu
         adeganPintu.tambahPilihan(pilihanMenujuMeja); //pilihan ke meja direuse
+        adeganPintu.idBarangBisaDigunakan = "kunci_besar"; //kunci_besar bisa digunakan di adegan ini
 
+        // == adegan di depan meja
+        adeganMeja.narasi = "Rudi mendekati meja. Ada beberapa barang di atas meja";
+        adeganMeja.tambahBarang(new Barang("kunci_besar", "Kunci berukuran besar"));
+        adeganMeja.tambahBarang(new Barang("senter", "Senter kecil"));
+        adeganMeja.tambahPilihan(pilihanMenujuPintu); //dari meja bisa ke pintu
 
 
         //== init game engine
         GameEngine ge = new GameEngine();
-        ge.tambahAdegan(adeganAwal);
-        ge.tambahAdegan(adeganPintu);
         //ge.tambahAdegan(adeganMeja);
-        ge.adeganAwal = adeganAwal;
-
+        ge.oPlayer.adeganAktif = adeganAwal; //start dari adegan awal
         ge.mulai();
     }
 }

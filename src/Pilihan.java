@@ -3,13 +3,17 @@
  */
 
 public class Pilihan {
-    String narasi;
+    String deskripsi;
+
+    /*method yang akan dipanggil jika pilihan dipilih user*/
     public void aksi(){}
-    public Pilihan(String narasi) {
-        this.narasi = narasi;
+
+    //constructor
+    public Pilihan(String deskripsi) {
+        this.deskripsi= deskripsi;
     }
 
     public void print() {
-        System.out.println(narasi);
+        System.out.println(deskripsi);
     }
 }
