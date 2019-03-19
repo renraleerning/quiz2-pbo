@@ -3,12 +3,13 @@
      Aksi adalah memindahkan barang adegan ke dalam kantong.
  */
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PilihanLihatBarang extends Pilihan {
 
     //barang yg ada di adegan (misal kunci yg ada di atas meja)
-    Barang[] arrBarang = new Barang[5];
+    ArrayList<Barang> arrBarang = new ArrayList<>();
     int jumBarang = 0;
 
     public Adegan oAdegan;
@@ -26,8 +27,13 @@ public class PilihanLihatBarang extends Pilihan {
         if (jumBarang > 0) {
             System.out.println("Barang yang bisa diambil:");
             //tampilkan barang
-            for (int i = 0; i < jumBarang; i++) {
-                System.out.print(String.format("- %s \n", arrBarang[i].deskripsi));
+            /*for (int i = 0; i < jumBarang; i++) {
+                System.out.print(String.format("- %s \n", arrBarang.get(i).deskripsi));
+            }*/
+
+            for (Barang data:arrBarang){
+
+                System.out.print(String.format("[-] %s \n",data.deskripsi));
             }
             System.out.println("1. Ambil semua barang dan pindahkan ke kantong");
             System.out.println("2. Tidak mengambil apapun");
@@ -49,7 +55,7 @@ public class PilihanLihatBarang extends Pilihan {
     private void isiKantong() {
         //pindahkan barang di adegan ke player
         for (int i = 0; i < jumBarang; i++) {
-            oAdegan.oPlayer.tambahBarang(arrBarang[i]);
+            oAdegan.oPlayer.tambahBarang(arrBarang.get(i));
         }
         jumBarang = 0; //reset posisi, barang kosong
         System.out.println("Barang telah diambil..");
@@ -59,7 +65,7 @@ public class PilihanLihatBarang extends Pilihan {
        dan masuk ke kantongBarang
      */
     public void tambahBarang(Barang vBarang) {
-        arrBarang[jumBarang] = vBarang;
+        arrBarang.add(vBarang);
         jumBarang++;
     }
 

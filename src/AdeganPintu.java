@@ -20,11 +20,16 @@ public class AdeganPintu extends  Adegan {
         narasi = narasiTerbuka;
 
         //karena kunci sudah terbuka ada pilihan baru keluar dari kamar
-        Adegan  adeganKoridor = new Adegan();
+        Adegan adeganKoridor = new Adegan();
+        Adegan adeganKeluarKoridor = new AdeganKeluarKoridor();
         adeganKoridor.narasi = "Rudi pelan-pelan membuka pintu dan keluar dari kamar. Rudi sekarang berada di koridor " +
                 "yang sangat panjang";
         Pilihan pilihanMenujuKoridor = new PilihanGantiAdegan(adeganKoridor,"Keluar kamar, ke koridor");
         tambahPilihan(pilihanMenujuKoridor);
+
+        Pilihan pilihanKeluarKoridor = new PilihanGantiAdegan(adeganKeluarKoridor,"Maju terus");
+        adeganKoridor.tambahPilihan(pilihanKeluarKoridor);
+        adeganKeluarKoridor.idBarangBisaDigunakan="senter";
     }
 
 }

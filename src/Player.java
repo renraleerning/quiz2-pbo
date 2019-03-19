@@ -20,6 +20,7 @@ public class Player {
     //jika dipanggil akan lengkapi dengan nim, nama dan tulisan saya berjanji tdk akan dst..
     public void printIdentitas() {
         System.out.println("Identitas");
+        System.out.println("NIM 1601330 \nNama Renra Noviana, \nSaya bernjanji tidak berlaku curang dan/atau membantu orang lain berbuat curang");
         //lengkapi ...
     }
 
